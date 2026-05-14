@@ -32,10 +32,7 @@ const isActive = Astro.url.pathname === "/";
   </head>
 
   <body
-    class:list={[
-      "flex min-h-screen flex-col gap-12 bg-white px-4 pt-8 pb-6 antialiased md:mx-auto",
-      !chrome ? "max-w-2xl" : "w-dvw",
-    ]}
+    class="flex min-h-screen max-w-2xl flex-col gap-12 bg-white px-4 pt-8 pb-6 antialiased md:mx-auto"
   >
     {
       !chrome && (
@@ -92,7 +89,7 @@ const isActive = Astro.url.pathname === "/";
             </Anchor>
             <span class="text-zinc-400">/</span>
             <Anchor
-              href="https://github.com/myjeong19/minyeong.xyz"
+              href="https://github.com/myjeong19/minyeong.uno"
               target="_blank"
               rel="noopener noreferrer"
             >

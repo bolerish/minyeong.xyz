@@ -41,7 +41,7 @@ const groupedPosts = Object.entries(postsByYear).sort(
           {yearPosts.map((post) => (
             <li class="py-1 hover:bg-zinc-50">
               <Anchor
-                href={`/${post.id}`}
+                href={`/${post.data.slug}`}
                 class="flex min-w-0 flex-col gap-1.5 rounded-md px-2 transition-colors duration-200"
               >
                 <h3 class="truncate text-lg leading-5 font-normal text-zinc-900">

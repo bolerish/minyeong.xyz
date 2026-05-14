@@ -18,6 +18,7 @@ function getPostSchema() {
       .string()
       .nullish()
       .transform((value) => value ?? ""),
+    slug: z.string(),
     category: z.string(),
     pubDate: postDateSchema,
     updatedDate: postDateSchema.optional(),
