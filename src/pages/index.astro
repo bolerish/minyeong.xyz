@@ -1,9 +1,9 @@
 ---
 import Anchor from "~/components/Anchor.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "~/consts";
 import { getPostDescription, getPosts } from "~/content/lib/posts";
 import SiteLayout from "~/layouts/SiteLayout.astro";
 import type { CollectionEntry } from "astro:content";
-import { SITE_DESCRIPTION, SITE_TITLE } from "./consts";
 
 const posts = (await getPosts()).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),

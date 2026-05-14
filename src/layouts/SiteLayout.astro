@@ -4,7 +4,7 @@ import Anchor from "~/components/Anchor.astro";
 import SeoHead from "~/components/seo/SeoHead.astro";
 import StructuredData from "~/components/seo/StructuredData.astro";
 import type { SeoProps } from "~/components/seo/types";
-import { SITE_TITLE } from "~/pages/consts";
+import { SITE_TITLE } from "~/consts";
 import { Font } from "astro:assets";
 
 interface Props extends SeoProps {
@@ -40,7 +40,7 @@ const isActive = Astro.url.pathname === "/";
     {
       !chrome && (
         <header class="flex items-center">
-          <h1 class="font-zen-serif grow text-base tracking-wider text-zinc-600">
+          <h1 class="font-zen-serif grow text-base tracking-wider text-zinc-700">
             {!isActive ? (
               <Anchor
                 href="/"
@@ -92,7 +92,7 @@ const isActive = Astro.url.pathname === "/";
             </Anchor>
             <span class="text-zinc-400">/</span>
             <Anchor
-              href="https://github.com/myjeong19/minyeong.dev"
+              href="https://github.com/myjeong19/minyeong.xyz"
               target="_blank"
               rel="noopener noreferrer"
             >

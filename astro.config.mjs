@@ -9,7 +9,7 @@ import { defineConfig, fontProviders } from "astro/config";
 import remarkToc from "remark-toc";
 
 export default defineConfig({
-  site: "https://minyeong.dev",
+  site: "https://minyeong.xyz",
   integrations: [sitemap(), astroExpressiveCode()],
   trailingSlash: "never",
   fonts: [

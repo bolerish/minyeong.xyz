@@ -1,5 +1,5 @@
 {
-  "name": "minyeong.dev",
+  "name": "minyeong.xyz",
   "version": "0.0.1",
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
@@ -24,7 +24,13 @@
     "typescript-eslint": "^8.59.3"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": "24.x"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   },
   "scripts": {
     "dev": "astro dev",
