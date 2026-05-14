@@ -1,0 +1,35 @@
+---
+import type { SeoProps as Props } from "./types";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const {
+  title,
+  description,
+  contentType = "website",
+  pubDate,
+  updatedDate,
+} = Astro.props;
+
+const schema =
+  contentType === "article" && pubDate
+    ? JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description,
+        datePublished: pubDate.toISOString(),
+        dateModified: (updatedDate ?? pubDate).toISOString(),
+        author: {
+          "@type": "Person",
+          name: "Minyeong Jeong",
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": canonicalURL.href,
+        },
+      })
+    : null;
+---
+
+{schema && <script is:inline type="application/ld+json" set:html={schema} />}

@@ -1,0 +1,248 @@
+@reference "./global.css";
+
+:root {
+  --floating-action-offset: 1.5rem;
+
+  --color-return-highlight-bg: color-mix(
+    in oklch,
+    var(--color-selection) 12%,
+    transparent
+  );
+  --color-return-highlight-ring: color-mix(
+    in oklch,
+    var(--color-selection) 8%,
+    transparent
+  );
+
+  --color-code-ref-ring: var(--color-zinc-900);
+
+  --color-code-ref-ring-soft: color-mix(
+    in srgb,
+    var(--color-code-ref-ring) 6%,
+    transparent
+  );
+  --color-code-ref-ring-strong: color-mix(
+    in srgb,
+    var(--color-code-ref-ring) 12%,
+    transparent
+  );
+}
+
+@theme inline {
+  --color-code-ref-border-rest: var(--color-zinc-200);
+  --color-code-ref-border-active: var(--color-zinc-800);
+}
+
+.props {
+  @apply my-3 text-base leading-6;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 .prose strong,
+.prose pre {
+  @apply text-zinc-950;
+}
+
+.prose p,
+.prose li,
+.prose blockquote {
+  @apply text-zinc-700;
+}
+
+.prose blockquote {
+  @apply border-zinc-300;
+}
+
+.prose hr {
+  @apply border-zinc-200;
+}
+
+.prose a {
+  @apply text-zinc-900 decoration-zinc-300 underline-offset-4 transition-colors duration-200;
+}
+
+.prose a:hover {
+  @apply decoration-zinc-900;
+}
+
+.prose > p {
+  @apply pb-2 tracking-wide text-zinc-950;
+}
+
+.prose code {
+  @apply rounded-sm bg-zinc-100 px-1.5 py-1 font-mono text-red-400;
+  @apply before:hidden after:hidden;
+}
+
+.prose h2#toc {
+  @apply text-sm tracking-wide uppercase;
+}
+
+.prose h2#toc + ul {
+  @apply list-none border-l border-zinc-200 pl-4;
+}
+
+.prose h2#toc + ul > li {
+  @apply relative my-1 pl-3;
+}
+
+.prose h2#toc + ul > li::before {
+  @apply absolute left-0 text-zinc-400;
+}
+
+.prose h2#toc + ul ul {
+  @apply mt-1 p-0;
+}
+
+.prose h2#toc + ul ul li {
+  @apply relative my-1 list-none pl-5;
+}
+
+.prose h2#toc + ul ul li::before {
+  content: "-";
+  @apply absolute left-0 text-zinc-300;
+}
+
+.prose h2#toc + ul a {
+  @apply text-sm text-zinc-500 no-underline transition;
+}
+
+.prose h2#toc + ul a:hover {
+  @apply text-zinc-900 underline underline-offset-2;
+}
+
+.prose .expressive-code {
+  @apply my-6;
+}
+
+.prose .expressive-code .frame {
+  @apply overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50;
+}
+
+.prose .expressive-code .frame.is-referenced {
+  animation: code-block-reference-flash 1.2s ease;
+}
+
+.prose .expressive-code .frame.has-title:not(.is-terminal) .header {
+  @apply border-b border-zinc-200 bg-white px-4 py-3 ps-4;
+}
+
+.prose .expressive-code .frame.has-title:not(.is-terminal) .header::before {
+  @apply hidden;
+}
+
+.prose .expressive-code .frame.has-title:not(.is-terminal) .title {
+  @apply flex items-center gap-2 border-0 bg-transparent p-0 text-sm font-medium text-zinc-800;
+}
+
+.prose .expressive-code .frame.has-title:not(.is-terminal) .title::after {
+  @apply hidden;
+}
+
+.prose .expressive-code .frame.has-title pre {
+  @apply rounded-none border-0 bg-zinc-950;
+}
+
+.prose .expressive-code .frame pre {
+  @apply rounded-2xl border border-zinc-200 bg-zinc-950;
+}
+
+.prose .expressive-code .frame pre code {
+  @apply py-5;
+}
+
+.prose .expressive-code .copy {
+  @apply top-2 right-2;
+}
+
+.prose .expressive-code .copy button {
+  @apply rounded-md border border-zinc-200 bg-white text-zinc-600 opacity-100;
+}
+
+.prose .expressive-code .copy button:hover,
+.prose .expressive-code .copy button:focus-visible {
+  @apply border-zinc-300 text-zinc-900;
+}
+
+.prose .expressive-code .copy button:active {
+  @apply text-zinc-900;
+}
+
+.prose .expressive-code .copy .feedback {
+  @apply bg-zinc-900 text-white;
+}
+
+.prose .expressive-code .copy .feedback::after {
+  border-inline-start-color: rgb(24 24 27);
+}
+
+.prose .expressive-code .copy button div {
+  @apply rounded-md;
+}
+
+.prose .expressive-code .title svg {
+  @apply size-6 shrink-0;
+}
+
+.prose .expressive-code pre code,
+.prose :not(pre) > code {
+  font-family:
+    var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, Monaco,
+    Consolas, monospace;
+  @apply font-normal not-italic;
+}
+
+.prose .is-return-target {
+  @apply rounded-md;
+  animation: pulse-highlight 1200ms ease;
+}
+
+.code-reference-return-shell {
+  @apply pointer-events-none sticky bottom-10 z-40 -mt-4 flex h-10 justify-end md:h-12;
+  padding-right: var(--floating-action-offset);
+}
+
+.code-reference-return {
+  @apply flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium;
+  @apply border-zinc-300 bg-white/85 text-zinc-600 shadow-md ring-1 ring-black/5 backdrop-blur-md;
+  @apply transition-all duration-200 ease-out;
+  @apply pointer-events-none opacity-0;
+  transform: translateY(0.75rem);
+}
+
+.code-reference-return.is-visible {
+  @apply pointer-events-auto opacity-100;
+  transform: translateY(0);
+}
+
+.code-reference-return:hover {
+  @apply border-zinc-400 bg-white/95 text-zinc-900 shadow-lg ring-black/10;
+  @apply cursor-pointer;
+  transform: translateY(-2px);
+}
+
+.code-reference-return:active {
+  @apply -translate-y-1 opacity-90;
+  transition-duration: 50ms;
+}
+
+@keyframes pulse-highlight {
+  0% {
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  25% {
+    background-color: var(--color-return-highlight-bg);
+    box-shadow: 0 0 0 0.25rem var(--color-return-highlight-ring);
+  }
+
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+  }
+}

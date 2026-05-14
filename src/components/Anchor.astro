@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+const {
+  class: className,
+  target,
+  ...rest
+} = Astro.props as HTMLAttributes<"a">;
+---
+
+<a
+  {...rest}
+  target={target}
+  class:list={[
+    className,
+    target === "_blank" &&
+      "border-b border-zinc-300 text-zinc-600 transition-[border-color] hover:border-zinc-500",
+  ]}
+>
+  <slot />
+</a>

@@ -1,0 +1,106 @@
+---
+import "~/styles/global.css";
+import Anchor from "~/components/Anchor.astro";
+import SeoHead from "~/components/seo/SeoHead.astro";
+import StructuredData from "~/components/seo/StructuredData.astro";
+import type { SeoProps } from "~/components/seo/types";
+import { SITE_TITLE } from "~/pages/consts";
+import { Font } from "astro:assets";
+
+interface Props extends SeoProps {
+  chrome?: boolean;
+  preloadMonoFont?: boolean;
+}
+
+const {
+  preloadMonoFont = false,
+  chrome = false,
+  ...seo
+} = Astro.props satisfies Props;
+
+const isActive = Astro.url.pathname === "/";
+---
+
+<html lang="ko">
+  <head>
+    <SeoHead {...seo} />
+    <StructuredData {...seo} />
+
+    <Font cssVariable="--font-suit" preload />
+    <Font cssVariable="--font-zen-serif-family" preload />
+    {preloadMonoFont && <Font cssVariable="--font-geist-mono" preload />}
+  </head>
+
+  <body
+    class:list={[
+      "flex min-h-screen flex-col gap-12 bg-white px-4 pt-8 pb-6 antialiased md:mx-auto",
+      !chrome ? "max-w-2xl" : "w-dvw",
+    ]}
+  >
+    {
+      !chrome && (
+        <header class="flex items-center">
+          <h1 class="font-zen-serif grow text-base tracking-wider text-zinc-600">
+            {!isActive ? (
+              <Anchor
+                href="/"
+                class="cursor-pointer text-zinc-900 transition-opacity hover:opacity-70"
+              >
+                {SITE_TITLE}
+              </Anchor>
+            ) : (
+              <span>{SITE_TITLE}</span>
+            )}
+          </h1>
+          <nav class="space-x-4 text-sm">
+            <Anchor
+              href="https://github.com/myjeong19"
+              target="_blank"
+              aria-label="Github"
+            >
+              Github
+            </Anchor>
+            <span class="text-zinc-400">/</span>
+            <Anchor href="/rss.xml" target="_blank" rel="noopener noreferrer">
+              RSS
+            </Anchor>
+          </nav>
+        </header>
+      )
+    }
+
+    <main
+      class:list={[
+        "content-shell flex-1",
+        !chrome ? "space-y-2" : "flex flex-col justify-center",
+      ]}
+    >
+      <slot />
+    </main>
+
+    {
+      !chrome && (
+        <footer class="flex items-center gap-8 text-center text-xs tracking-wide text-zinc-600">
+          <div class="text-left">© 2026 Minyeong Jeong</div>
+          <div class="space-x-2">
+            <Anchor
+              href="mailto:minyeong.dev@gmail.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Email
+            </Anchor>
+            <span class="text-zinc-400">/</span>
+            <Anchor
+              href="https://github.com/myjeong19/minyeong.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Source
+            </Anchor>
+          </div>
+        </footer>
+      )
+    }
+  </body>
+</html>
