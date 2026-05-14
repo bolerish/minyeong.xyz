@@ -2,4 +2,4 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = "minyeong.xyz";
-export const SITE_DESCRIPTION = "배운 것과 고민한 과정들을 기록합니다.";
+export const SITE_DESCRIPTION = "이것저것을 남겨둡니다.";

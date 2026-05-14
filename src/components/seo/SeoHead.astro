@@ -15,7 +15,7 @@ const {
 } = Astro.props;
 
 const pageTitle =
-  title === SITE_TITLE ? SITE_TITLE : `${title} | ${SITE_TITLE}`;
+  title === SITE_TITLE ? SITE_TITLE : `${title} — ${SITE_TITLE}`;
 const imageURL = new URL(image.src, Astro.site).href;
 ---
 
