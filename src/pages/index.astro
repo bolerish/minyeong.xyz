@@ -1,5 +1,4 @@
 ---
-import Anchor from "~/components/Anchor.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "~/consts";
 import { getPostDescription, getPosts } from "~/content/lib/posts";
 import SiteLayout from "~/layouts/SiteLayout.astro";
@@ -40,7 +39,7 @@ const groupedPosts = Object.entries(postsByYear).sort(
         <ul class="min-w-0 flex-1 space-y-2">
           {yearPosts.map((post) => (
             <li class="py-1 hover:bg-zinc-50">
-              <Anchor
+              <a
                 href={`/${post.data.slug}`}
                 class="flex min-w-0 flex-col gap-1.5 rounded-md transition-colors duration-200"
               >
@@ -50,7 +49,7 @@ const groupedPosts = Object.entries(postsByYear).sort(
                 <p class="mt-0.5 line-clamp-2 text-sm text-zinc-500">
                   {getPostDescription(post)}
                 </p>
-              </Anchor>
+              </a>
             </li>
           ))}
         </ul>

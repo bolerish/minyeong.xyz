@@ -1,6 +1,6 @@
 ---
 import "~/styles/global.css";
-import Anchor from "~/components/Anchor.astro";
+import GithubIcon from "~/assets/icons/github.svg";
 import SeoHead from "~/components/seo/SeoHead.astro";
 import StructuredData from "~/components/seo/StructuredData.astro";
 import type { SeoProps } from "~/components/seo/types";
@@ -37,31 +37,18 @@ const isActive = Astro.url.pathname === "/";
     {
       !chrome && (
         <header class="flex items-center">
-          <h1 class="font-zen-serif grow text-base tracking-wider text-zinc-700">
+          <h1 class="font-zen-serif grow text-base tracking-wider text-zinc-500">
             {!isActive ? (
-              <Anchor
+              <a
                 href="/"
                 class="cursor-pointer text-zinc-900 transition-opacity hover:opacity-70"
               >
                 {SITE_TITLE}
-              </Anchor>
+              </a>
             ) : (
               <span>{SITE_TITLE}</span>
             )}
           </h1>
-          <nav class="space-x-4 text-sm">
-            <Anchor
-              href="https://github.com/myjeong19"
-              target="_blank"
-              aria-label="Github"
-            >
-              Github
-            </Anchor>
-            <span class="text-zinc-400">/</span>
-            <Anchor href="/rss.xml" target="_blank" rel="noopener noreferrer">
-              RSS
-            </Anchor>
-          </nav>
         </header>
       )
     }
@@ -69,7 +56,7 @@ const isActive = Astro.url.pathname === "/";
     <main
       class:list={[
         "content-shell mt-6 flex-1 md:mt-10",
-        !chrome ? "space-y-2" : "flex flex-col justify-center",
+        !chrome ? "space-y-2" : "flex flex-col",
       ]}
     >
       <slot />
@@ -77,25 +64,19 @@ const isActive = Astro.url.pathname === "/";
 
     {
       !chrome && (
-        <footer class="flex items-center gap-8 text-center text-xs tracking-wide text-zinc-600">
+        <footer class="flex items-center justify-between text-center text-xs tracking-wide text-zinc-500">
           <div class="text-left">© 2026 Minyeong Jeong</div>
-          <div class="space-x-2">
-            <Anchor
-              href="mailto:minyeong.dev@gmail.com"
+          <nav>
+            <a
+              href="https://github.com/myjeong19"
               rel="noopener noreferrer"
               target="_blank"
+              class="flex items-center gap-1 transition-colors duration-150 hover:text-zinc-800 hover:opacity-100"
             >
-              Email
-            </Anchor>
-            <span class="text-zinc-400">/</span>
-            <Anchor
-              href="https://github.com/myjeong19/minyeong.xyz"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source
-            </Anchor>
-          </div>
+              <GithubIcon class="size-3.5" />
+              <span class="text-sm">Github</span>
+            </a>
+          </nav>
         </footer>
       )
     }
