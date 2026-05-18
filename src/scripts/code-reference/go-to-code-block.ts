@@ -1,4 +1,3 @@
-const AUTO_HIDE_SCROLL_DELAY_MS = 700;
 const CODE_BLOCK_FLASH_DURATION_MS = 1200;
 const REFERENCED_CODE_BLOCK_CLASS = "is-referenced";
 const CODE_BLOCK_SELECTOR = ".expressive-code .frame, figure.frame";
@@ -6,7 +5,6 @@ const CODE_REFERENCE_LINK_SELECTOR = "a[href^='#']";
 
 type CodeReferenceState = {
   didJumpFromReference: boolean;
-  ignoreScrollUntil: number;
   returnTarget: HTMLElement | null;
   returnScrollY: number;
 };
@@ -71,8 +69,6 @@ export const registerGoToCodeBlock = ({
     event.preventDefault();
 
     state.didJumpFromReference = true;
-    state.ignoreScrollUntil =
-      window.performance.now() + AUTO_HIDE_SCROLL_DELAY_MS;
     state.returnTarget = findReturnTarget(anchor);
     state.returnScrollY = window.scrollY;
 

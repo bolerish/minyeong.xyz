@@ -30,13 +30,13 @@ const description = getPostDescription(post);
   preloadMonoFont
 >
   <header class="mb-16 flex flex-col items-center justify-center">
-    <h1 class="mb-9 text-3xl font-bold tracking-tight text-zinc-900">
+    <h1 class="text-mds-primary mb-6 text-4xl font-bold tracking-wider">
       {title}
     </h1>
 
     <time
       datetime={pubDate.toISOString()}
-      class="text-sm font-medium tracking-wide text-zinc-500"
+      class="text-mds-quaternary text-sm font-medium tracking-widest"
     >
       {
         pubDate.toLocaleDateString("ko-KR", {
@@ -49,19 +49,20 @@ const description = getPostDescription(post);
   </header>
   <article class="prose prose-zinc max-w-none">
     <Content />
+
+    <div class="code-reference-return-shell">
+      <button
+        type="button"
+        class="code-reference-return"
+        data-code-reference-return
+        hidden
+      >
+        <ArrowLeftIcon />
+        읽던 곳으로 돌아가기
+      </button>
+    </div>
   </article>
 
-  <div class="code-reference-return-shell">
-    <button
-      type="button"
-      class="code-reference-return"
-      data-code-reference-return
-      hidden
-    >
-      <ArrowLeftIcon />
-      읽던 곳으로 돌아가기
-    </button>
-  </div>
   <script>
     import "~/scripts/code-reference";
   </script>

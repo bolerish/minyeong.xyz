@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+:root {
+  --color-primary: oklch(24% 0.03 255);
+  --color-secondary: oklch(35% 0.028 255);
+  --color-tertiary: oklch(48% 0.022 255);
+  --color-quaternary: oklch(60% 0.018 255);
+  --color-muted: oklch(72% 0.014 255);
+  --color-disabled: oklch(84% 0.01 255);
+}
+
 @theme inline {
   --font-sans: var(--font-suit);
   --font-mono:
@@ -11,6 +20,15 @@
   --color-text: var(--color-zinc-900);
   --color-accent: var(--color-zinc-900);
   --color-selection: var(--color-blue-400);
+  --color-white: oklch(98.463% 0.00181 249.248);
+  --color-black: oklch(22.686% 0.00193 286.053);
+
+  --color-mds-primary: var(--color-primary);
+  --color-mds-secondary: var(--color-secondary);
+  --color-mds-tertiary: var(--color-tertiary);
+  --color-mds-quaternary: var(--color-quaternary);
+  --color-mds-muted: var(--color-muted);
+  --color-mds-disabled: var(--color-disabled);
 }
 
 @layer base {

@@ -1,7 +1,20 @@
 @reference "./global.css";
 
 :root {
-  --floating-action-offset: 1.5rem;
+  --content-shell-width: 42rem;
+  --content-shell-inline-padding: 2rem;
+  --floating-action-offset: var(--content-shell-inline-padding);
+
+  @variant md {
+    --content-shell-inline-padding: 0.5rem;
+    --floating-action-offset: max(
+      var(--content-shell-inline-padding),
+      calc(
+        (100vw - var(--content-shell-width)) / 2 +
+          var(--content-shell-inline-padding)
+      )
+    );
+  }
 
   --color-return-highlight-bg: color-mix(
     in oklch,
@@ -15,7 +28,6 @@
   );
 
   --color-code-ref-ring: var(--color-zinc-900);
-
   --color-code-ref-ring-soft: color-mix(
     in srgb,
     var(--color-code-ref-ring) 6%,
@@ -28,70 +40,85 @@
   );
 }
 
-@theme inline {
-  --color-code-ref-border-rest: var(--color-zinc-200);
-  --color-code-ref-border-active: var(--color-zinc-800);
-}
-
-.props {
-  @apply my-3 text-base leading-6;
-}
-
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4,
 .prose h5,
-.prose h6 .prose strong,
-.prose pre {
-  @apply text-zinc-950;
+.prose h6 .prose strong {
+  @apply text-mds-primary;
 }
 
 .prose p,
 .prose li,
 .prose blockquote {
-  @apply text-zinc-700;
+  @apply text-mds-secondary tracking-wider;
+}
+
+.prose p {
+  @apply leading-7;
 }
 
 .prose blockquote {
-  @apply border-zinc-300;
+  @apply border-mds-primary;
 }
 
 .prose hr {
-  @apply border-zinc-200;
+  @apply border-mds-disabled;
 }
 
 .prose a {
-  @apply text-zinc-600 decoration-zinc-300 underline-offset-3 transition-colors duration-200;
+  @apply text-mds-tertiary decoration-mds-disabled underline-offset-3 transition-colors duration-150;
 }
 
 .prose a:hover {
-  @apply decoration-zinc-500;
+  @apply decoration-mds-primary;
 }
 
-.prose > p {
-  @apply pb-2 tracking-wide text-zinc-950;
-}
-
-.prose code {
+:where(a code):not(:where([class~="not-prose"], [class~="not-prose"] *)),
+.prose p > code,
+.prose li > code {
   @apply rounded-sm bg-zinc-100 px-1.5 py-1 font-mono text-red-400;
   @apply before:hidden after:hidden;
 }
 
+.prose ul {
+  @apply list-none p-0;
+}
+
+.prose ul li {
+  @apply relative pl-6;
+}
+
+.prose ul li::before {
+  content: "－";
+  @apply text-mds-disabled absolute top-0 left-0 h-auto w-auto bg-transparent text-xl;
+}
+
+.prose img {
+  border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd));
+}
+
+/* * TOC */
+
 .prose h2#toc {
-  @apply text-sm tracking-wide uppercase;
+  @apply m-0 text-sm tracking-widest uppercase;
 }
 
 .prose h2#toc + ul {
-  @apply list-none border-l border-zinc-200 pl-4;
+  @apply ml-1 list-none border-l border-zinc-200 pl-4;
+}
+
+.prose h2#toc + ul li {
+  @apply relative my-1;
+}
+
+.prose h2#toc + ul li::before {
+  content: none;
 }
 
 .prose h2#toc + ul > li {
-  @apply relative my-1 pl-3;
-}
-
-.prose h2#toc + ul > li::before {
-  @apply absolute left-0 text-zinc-400;
+  @apply pl-3;
 }
 
 .prose h2#toc + ul ul {
@@ -99,111 +126,57 @@
 }
 
 .prose h2#toc + ul ul li {
-  @apply relative my-1 list-none pl-5;
+  @apply pl-6;
 }
 
 .prose h2#toc + ul ul li::before {
-  content: "-";
-  @apply absolute left-0 text-zinc-300;
+  content: "－";
+  @apply text-mds-disabled absolute top-0 left-0 h-auto w-auto bg-transparent text-xl;
 }
 
 .prose h2#toc + ul a {
-  @apply text-sm text-zinc-500 no-underline transition;
+  @apply text-mds-quaternary text-sm no-underline transition;
 }
 
 .prose h2#toc + ul a:hover {
-  @apply text-zinc-900 underline underline-offset-2;
+  @apply text-mds-secondary underline underline-offset-2;
 }
 
-.prose .expressive-code {
+/* * expressive-code */
+
+.expressive-code {
   @apply my-6;
 }
 
-.prose .expressive-code .frame {
-  @apply overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50;
+.expressive-code div.ec-line div.code {
+  @apply font-mono;
 }
 
-.prose .expressive-code .frame.is-referenced {
-  animation: code-block-reference-flash 1.2s ease;
+.expressive-code pre code {
+  --ec-codePadBlk: 2em;
 }
 
-.prose .expressive-code .frame.has-title:not(.is-terminal) .header {
-  @apply border-b border-zinc-200 bg-white px-4 py-3 ps-4;
+.expressive-code figure.frame figcaption.header:not(:empty) {
+  @apply flex h-12 items-center justify-start;
 }
 
-.prose .expressive-code .frame.has-title:not(.is-terminal) .header::before {
-  @apply hidden;
+.expressive-code span.title {
+  @apply flex h-full items-center justify-center;
 }
 
-.prose .expressive-code .frame.has-title:not(.is-terminal) .title {
-  @apply flex items-center gap-2 border-0 bg-transparent p-0 text-sm font-medium text-zinc-800;
+.expressive-code div.copy {
+  @apply absolute top-2 right-2 font-mono;
 }
 
-.prose .expressive-code .frame.has-title:not(.is-terminal) .title::after {
-  @apply hidden;
-}
-
-.prose .expressive-code .frame.has-title pre {
-  @apply rounded-none border-0 bg-zinc-950;
-}
-
-.prose .expressive-code .frame pre {
-  @apply rounded-2xl border border-zinc-200 bg-zinc-950;
-}
-
-.prose .expressive-code .frame pre code {
-  @apply py-5;
-}
-
-.prose .expressive-code .copy {
-  @apply top-2 right-2;
-}
-
-.prose .expressive-code .copy button {
-  @apply rounded-md border border-zinc-200 bg-white text-zinc-600 opacity-100;
-}
-
-.prose .expressive-code .copy button:hover,
-.prose .expressive-code .copy button:focus-visible {
-  @apply border-zinc-300 text-zinc-900;
-}
-
-.prose .expressive-code .copy button:active {
-  @apply text-zinc-900;
-}
-
-.prose .expressive-code .copy .feedback {
-  @apply bg-zinc-900 text-white;
-}
-
-.prose .expressive-code .copy .feedback::after {
-  border-inline-start-color: rgb(24 24 27);
-}
-
-.prose .expressive-code .copy button div {
-  @apply rounded-md;
-}
-
-.prose .expressive-code .title svg {
-  @apply size-6 shrink-0;
-}
-
-.prose .expressive-code pre code,
-.prose :not(pre) > code {
-  font-family:
-    var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, Monaco,
-    Consolas, monospace;
-  @apply font-normal not-italic;
-}
-
+/* * Code block Anchor */
 .prose .is-return-target {
   @apply rounded-md;
   animation: pulse-highlight 1200ms ease;
 }
 
 .code-reference-return-shell {
-  @apply pointer-events-none sticky bottom-10 z-40 -mt-4 flex h-10 justify-end md:h-12;
-  padding-right: var(--floating-action-offset);
+  @apply pointer-events-none fixed top-10 z-40 flex h-10 justify-end md:h-12;
+  right: var(--floating-action-offset);
 }
 
 .code-reference-return {
@@ -245,4 +218,79 @@
     background-color: transparent;
     box-shadow: 0 0 0 0 transparent;
   }
+}
+
+/* * Footnotes */
+
+.prose section.footnotes {
+  @apply relative my-14 py-4;
+}
+
+.prose section.footnotes::before {
+  content: "";
+  @apply absolute top-0 left-0 h-px w-full bg-zinc-200;
+}
+
+.prose section.footnotes h2 {
+  @apply text-mds-quaternary mb-4 text-sm font-semibold tracking-widest uppercase;
+}
+
+.prose section.footnotes ol {
+  @apply list-decimal pl-5;
+}
+
+.prose section.footnotes li {
+  @apply text-mds-tertiary my-2 pl-1 text-sm leading-7;
+}
+
+.prose section.footnotes li::before {
+  content: none;
+}
+
+.prose section.footnotes p {
+  @apply my-0 inline;
+}
+
+.prose section.footnotes a {
+  @apply text-mds-quaternary hover:text-mds-secondary no-underline;
+}
+
+.prose section.footnotes .data-footnote-backref,
+.prose section.footnotes a[aria-label="Back to content"] {
+  @apply ml-1 text-xs no-underline;
+}
+
+/* * Accordion */
+
+summary {
+  @apply flex cursor-pointer items-center gap-2;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: "";
+  @apply size-4 bg-current;
+  mask: url("/icons/chevron-down.svg") center / contain no-repeat;
+}
+
+details[open] > summary::before {
+  transform: rotate(180deg);
+}
+
+.details-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 200ms ease;
+}
+
+.details-content > div {
+  overflow: hidden;
+}
+
+details[open] > .details-content {
+  grid-template-rows: 1fr;
 }

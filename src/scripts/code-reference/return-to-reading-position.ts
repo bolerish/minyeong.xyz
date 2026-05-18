@@ -4,7 +4,6 @@ const RETURN_TARGET_FLASH_CLASS = "is-return-target";
 
 type CodeReferenceState = {
   didJumpFromReference: boolean;
-  ignoreScrollUntil: number;
   returnTarget: HTMLElement | null;
   returnScrollY: number;
 };
@@ -80,7 +79,6 @@ export const registerReturnToContent = ({
 }: ReturnToContentOptions) => {
   const resetCodeReferenceState = () => {
     state.didJumpFromReference = false;
-    state.ignoreScrollUntil = 0;
     state.returnTarget = null;
     state.returnScrollY = 0;
     closeReturnButton();
@@ -99,17 +97,31 @@ export const registerReturnToContent = ({
     resetCodeReferenceState();
   });
 
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!state.didJumpFromReference) return;
-      if (window.performance.now() < state.ignoreScrollUntil) return;
+  const dismissReturnButton = () => {
+    if (!state.didJumpFromReference) return;
 
-      clearActiveHash();
-      resetCodeReferenceState();
-    },
-    { passive: true },
-  );
+    clearActiveHash();
+    resetCodeReferenceState();
+  };
+
+  const dismissReturnButtonOnScrollKey = (event: KeyboardEvent) => {
+    const scrollKeys = [
+      "ArrowDown",
+      "ArrowUp",
+      "End",
+      "Home",
+      "PageDown",
+      "PageUp",
+      " ",
+    ];
+
+    if (!scrollKeys.includes(event.key)) return;
+    dismissReturnButton();
+  };
+
+  window.addEventListener("wheel", dismissReturnButton, { passive: true });
+  window.addEventListener("touchmove", dismissReturnButton, { passive: true });
+  window.addEventListener("keydown", dismissReturnButtonOnScrollKey);
 
   window.addEventListener("hashchange", () => {
     if (window.location.hash) return;

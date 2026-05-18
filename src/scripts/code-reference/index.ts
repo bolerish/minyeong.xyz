@@ -10,7 +10,6 @@ const returnButton = document.querySelector<HTMLButtonElement>(
 
 const codeReferenceState = {
   didJumpFromReference: false,
-  ignoreScrollUntil: 0,
   returnTarget: null,
   returnScrollY: 0,
 };

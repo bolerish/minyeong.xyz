@@ -9,18 +9,17 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.3.0",
-    "@xt0rted/expressive-code-file-icons": "^1.0.0",
-    "astro": "^6.3.2",
-    "astro-expressive-code": "^0.41.7",
-    "eslint": "^10.3.0",
+    "astro": "^6.3.3",
+    "astro-expressive-code": "^0.42.0",
+    "eslint": "^10.4.0",
     "eslint-plugin-astro": "^1.7.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.4",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "remark-toc": "^9.0.0",
     "tailwindcss": "^4.3.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.3"
   },
   "engines": {
@@ -43,5 +42,8 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "check": "eslint . && prettier . --check && astro check"
+  },
+  "dependencies": {
+    "@expressive-code/plugin-line-numbers": "^0.42.0"
   }
 }

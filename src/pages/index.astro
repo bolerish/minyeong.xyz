@@ -34,19 +34,19 @@ const groupedPosts = Object.entries(postsByYear).sort(
   {
     groupedPosts.map(([year, yearPosts]) => (
       <section class="flex items-start gap-4">
-        <h2 class="py-1 text-xs leading-5 text-zinc-600">{year}</h2>
+        <h2 class="text-secondary py-2 text-xs leading-5">{year}</h2>
 
         <ul class="min-w-0 flex-1 space-y-2">
           {yearPosts.map((post) => (
-            <li class="py-1 hover:bg-zinc-50">
+            <li class="px-1 py-2 hover:bg-zinc-100">
               <a
                 href={`/${post.data.slug}`}
                 class="flex min-w-0 flex-col gap-1.5 rounded-md transition-colors duration-200"
               >
-                <h3 class="truncate text-lg leading-5 font-normal text-zinc-900">
+                <h3 class="text-mds-primary truncate text-lg leading-5">
                   {post.data.title}
                 </h3>
-                <p class="mt-0.5 line-clamp-2 text-sm text-zinc-500">
+                <p class="text-mds-quaternary mt-0.5 line-clamp-2 text-sm tracking-wide">
                   {getPostDescription(post)}
                 </p>
               </a>
