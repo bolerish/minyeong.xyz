@@ -2,6 +2,7 @@
 
 # Next.js output
 .next/
+out/
 *.tsbuildinfo
 
 # dependencies

@@ -4,16 +4,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   agentRules: false,
+  output: "export",
   transpilePackages: ["@bolerish/tokens"],
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "notionpresso.com",
-        pathname: "/icon.jpeg",
-      },
-    ],
-  },
+  images: { unoptimized: true },
 };
 
 export default withStylex({
